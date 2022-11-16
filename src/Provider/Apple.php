@@ -7,7 +7,6 @@
 
 namespace Hybridauth\Provider;
 
-use Composer\InstalledVersions;
 use Exception;
 use Firebase\JWT\ExpiredException;
 use Hybridauth\Exception\HttpClientFailureException;
@@ -320,18 +319,12 @@ class Apple extends OAuth2
     }
 
     /**
-     * Try to get the installed JWT version
+     * XGH method to not depend on composer 2
      *
-     * If composer 2 is installed use InstalledVersions::getVersion,
-     * otherwise return an empty string because no version check is available
-     *
-     * @return string|null
+     * @return string
      */
     private function getJwtVersion()
     {
-        // assume old JWT version if no version check is possible because composer 1 is installed
-        return class_exists('Composer\InstalledVersions') ?
-            InstalledVersions::getVersion('firebase/php-jwt') :
-            '';
+        return '5.2.1';
     }
 }
